@@ -36,6 +36,10 @@ public class DBManager {
         return conn;
     }
 
+    public PreparedStatement prepare(String statement) throws SQLException {
+        return getConn().prepareStatement(statement);
+    }
+
     private HikariConfig buildHikariConfig(String username, String password, String hostname, String port, String database) {
         HikariConfig dbConfig = new HikariConfig();
 
