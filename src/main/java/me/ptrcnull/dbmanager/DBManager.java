@@ -63,14 +63,16 @@ public abstract class DBManager {
         dataSource = new HikariDataSource(hikariConfig);
         try {
             conn = dataSource.getConnection();
-            return postSetup();
+            postSetup();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
+
+        return true;
     }
 
-    public abstract boolean postSetup() throws SQLException;
+    public abstract void postSetup() throws SQLException;
 
     public void close() {
         dataSource.close();
