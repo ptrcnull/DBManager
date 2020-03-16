@@ -15,7 +15,7 @@ public abstract class DBManager {
 
         dbConfig.setDriverClassName("com.mysql.jdbc.Driver");
         dbConfig.setUsername(username);
-        dbConfig.setUsername(password);
+        dbConfig.setPassword(password);
         dbConfig.setConnectionTimeout(30 * 1_000L);
         dbConfig.setMaxLifetime(30 * 1_000L);
 
