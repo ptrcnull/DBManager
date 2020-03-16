@@ -2,8 +2,6 @@ package me.ptrcnull.dbmanager;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import net.md_5.bungee.config.Configuration;
-import org.bukkit.configuration.ConfigurationSection;
 
 import java.sql.*;
 
@@ -12,35 +10,7 @@ public abstract class DBManager {
     private HikariDataSource dataSource;
     private Connection conn;
 
-    public DBManager(Configuration config) {
-        this.hikariConfig = buildHikariConfig(
-            config.getString("username", ""),
-            config.getString("password", ""),
-            config.getString("hostname", "localhost"),
-            config.getString("port", "3306"),
-            config.getString("database", "")
-        );
-    }
-
-    public DBManager(ConfigurationSection config) {
-        this.hikariConfig = buildHikariConfig(
-            config.getString("username", ""),
-            config.getString("password", ""),
-            config.getString("hostname", "localhost"),
-            config.getString("port", "3306"),
-            config.getString("database", "")
-        );
-    }
-
-    public Connection getConn() {
-        return conn;
-    }
-
-    public PreparedStatement prepare(String statement) throws SQLException {
-        return getConn().prepareStatement(statement);
-    }
-
-    private HikariConfig buildHikariConfig(String username, String password, String hostname, String port, String database) {
+    public DBManager(String username, String password, String hostname, String port, String database) {
         HikariConfig dbConfig = new HikariConfig();
 
         dbConfig.setDriverClassName("com.mysql.jdbc.Driver");
@@ -56,7 +26,15 @@ public abstract class DBManager {
             database
         ));
 
-        return dbConfig;
+        this.hikariConfig = dbConfig;
+    }
+
+    public Connection getConn() {
+        return conn;
+    }
+
+    public PreparedStatement prepare(String statement) throws SQLException {
+        return getConn().prepareStatement(statement);
     }
 
     public boolean setup() {
