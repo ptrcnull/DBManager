@@ -7,7 +7,7 @@ import org.bukkit.configuration.ConfigurationSection;
 
 import java.sql.*;
 
-public class DBManager {
+public abstract class DBManager {
     private HikariConfig hikariConfig;
     private HikariDataSource dataSource;
     private Connection conn;
@@ -63,13 +63,14 @@ public class DBManager {
         dataSource = new HikariDataSource(hikariConfig);
         try {
             conn = dataSource.getConnection();
+            return postSetup();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
-
-        return true;
     }
+
+    public abstract boolean postSetup() throws SQLException;
 
     public void close() {
         dataSource.close();
