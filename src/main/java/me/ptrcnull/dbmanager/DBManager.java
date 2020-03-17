@@ -39,9 +39,9 @@ public abstract class DBManager {
         return dataSource.getConnection();
     }
 
-    public PreparedStatement prepare(String statement) throws SQLException {
-        return getConnection().prepareStatement(statement);
-    }
+//    public PreparedStatement prepare(String statement) throws SQLException {
+//        return getConnection().prepareStatement(statement);
+//    }
 
     public boolean setup() {
         dataSource = new HikariDataSource(hikariConfig);
