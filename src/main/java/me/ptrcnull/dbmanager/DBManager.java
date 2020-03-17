@@ -45,26 +45,27 @@ public abstract class DBManager {
 
     private PreparedStatement prepare(Connection conn, String sql, Object... args) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement(sql);
-        for (int i = 1; i <= args.length; i++) {
+        for (int i = 0; i < args.length; i++) {
             Object arg = args[i];
+            int j = i + 1;
             if (arg instanceof String) {
-                stmt.setString(i, (String) arg);
+                stmt.setString(j, (String) arg);
             } else if (arg instanceof Integer) {
-                stmt.setInt(i, (Integer) arg);
+                stmt.setInt(j, (Integer) arg);
             } else if (arg instanceof Boolean) {
-                stmt.setBoolean(i, (Boolean) arg);
+                stmt.setBoolean(j, (Boolean) arg);
             } else if (arg instanceof BigDecimal) {
-                stmt.setBigDecimal(i, (BigDecimal) arg);
+                stmt.setBigDecimal(j, (BigDecimal) arg);
             } else if (arg instanceof Double) {
-                stmt.setDouble(i, (Double) arg);
+                stmt.setDouble(j, (Double) arg);
             } else if (arg instanceof Float) {
-                stmt.setFloat(i, (Float) arg);
+                stmt.setFloat(j, (Float) arg);
             } else if (arg instanceof Long) {
-                stmt.setLong(i, (Long) arg);
+                stmt.setLong(j, (Long) arg);
             } else if (arg instanceof Short) {
-                stmt.setShort(i, (Short) arg);
+                stmt.setShort(j, (Short) arg);
             } else {
-                stmt.setObject(i, arg);
+                stmt.setObject(j, arg);
             }
         }
         return stmt;
