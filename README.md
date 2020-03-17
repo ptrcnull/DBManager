@@ -11,11 +11,9 @@ Maven:
     <url>https://maven.ptrcnull.me/repository/maven-public/</url>
 </repository>
 
-<dependencies>
-    <dependency>
-        <groupId>me.ptrcnull</groupId>
-        <artifactId>DBManager</artifactId>
-        <version>1.5.0</version>
-    </dependency>
-</dependencies>
+<dependency>
+    <groupId>me.ptrcnull</groupId>
+    <artifactId>DBManager</artifactId>
+    <version>1.5.1</version>
+</dependency>
 ```
