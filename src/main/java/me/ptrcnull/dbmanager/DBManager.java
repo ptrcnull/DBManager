@@ -8,7 +8,6 @@ import java.sql.*;
 public abstract class DBManager {
     private HikariConfig hikariConfig;
     private HikariDataSource dataSource;
-    private Connection conn;
 
     public DBManager(String username, String password, String hostname, String port, String database) {
         HikariConfig dbConfig = new HikariConfig();
@@ -29,18 +28,17 @@ public abstract class DBManager {
         this.hikariConfig = dbConfig;
     }
 
-    public Connection getConn() {
-        return conn;
+    public HikariDataSource getDataSource() {
+        return dataSource;
     }
 
     public PreparedStatement prepare(String statement) throws SQLException {
-        return getConn().prepareStatement(statement);
+        return dataSource.getConnection().prepareStatement(statement);
     }
 
     public boolean setup() {
         dataSource = new HikariDataSource(hikariConfig);
         try {
-            conn = dataSource.getConnection();
             postSetup();
         } catch (SQLException e) {
             e.printStackTrace();
