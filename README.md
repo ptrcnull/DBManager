@@ -14,6 +14,6 @@ Maven:
 <dependency>
     <groupId>me.ptrcnull</groupId>
     <artifactId>DBManager</artifactId>
-    <version>1.5.1</version>
+    <version>1.5.2</version>
 </dependency>
 ```

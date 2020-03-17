@@ -18,6 +18,9 @@ public abstract class DBManager {
         dbConfig.setConnectionTimeout(30 * 1_000L);
         dbConfig.setMaxLifetime(30 * 1_000L);
 
+        dbConfig.setMaximumPoolSize(32);
+        dbConfig.setMinimumIdle(8);
+
         dbConfig.setJdbcUrl(String.format(
             "jdbc:mysql://%s:%s/%s",
             hostname,
@@ -32,8 +35,12 @@ public abstract class DBManager {
         return dataSource;
     }
 
+    public Connection getConnection() throws SQLException {
+        return dataSource.getConnection();
+    }
+
     public PreparedStatement prepare(String statement) throws SQLException {
-        return dataSource.getConnection().prepareStatement(statement);
+        return getConnection().prepareStatement(statement);
     }
 
     public boolean setup() {
