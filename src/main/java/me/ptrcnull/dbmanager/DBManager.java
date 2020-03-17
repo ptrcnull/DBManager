@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
 public abstract class DBManager {
@@ -72,17 +74,19 @@ public abstract class DBManager {
         return stmt;
     }
 
-    public void query(RowConsumer callback, String sql, Object... args) throws SQLException {
+    public <T> List<T> query(RowParser<T> callback, String sql, Object... args) throws SQLException {
         Connection conn = getConnection();
         PreparedStatement stmt = prepare(conn, sql, args);
 
         ResultSet result = stmt.executeQuery();
+        List<T> rows = new ArrayList<>();
         while (result.next()) {
-            callback.consume(result);
+            rows.add(callback.parse(result));
         }
 
         stmt.close();
         conn.close();
+        return rows;
     }
 
     public void update(String sql, Object... args) throws SQLException {
@@ -113,7 +117,7 @@ public abstract class DBManager {
         dataSource.close();
     }
 
-    public static interface RowConsumer {
-        public void consume(ResultSet resultSet) throws SQLException;
+    public static interface RowParser<T> {
+        public T parse(ResultSet resultSet) throws SQLException;
     }
 }
