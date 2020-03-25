@@ -4,13 +4,10 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 public abstract class DBManager {
     private HikariConfig hikariConfig;
@@ -67,6 +64,10 @@ public abstract class DBManager {
                 stmt.setLong(j, (Long) arg);
             } else if (arg instanceof Short) {
                 stmt.setShort(j, (Short) arg);
+            } else if (arg instanceof Timestamp) {
+                stmt.setTimestamp(j, (Timestamp) arg);
+            } else if (arg instanceof Instant) {
+                stmt.setTimestamp(j, Timestamp.from((Instant) arg));
             } else {
                 stmt.setObject(j, arg);
             }
