@@ -101,8 +101,8 @@ public abstract class DBManager {
     }
 
     public boolean setup() {
-        dataSource = new HikariDataSource(hikariConfig);
         try {
+            dataSource = new HikariDataSource(hikariConfig);
             postSetup();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -115,10 +115,12 @@ public abstract class DBManager {
     public abstract void postSetup() throws SQLException;
 
     public void close() {
-        dataSource.close();
+        if (dataSource != null && !dataSource.isClosed()) {
+            dataSource.close();
+        }
     }
 
-    public static interface RowParser<T> {
-        public T parse(ResultSet resultSet) throws SQLException;
+    public interface RowParser<T> {
+        T parse(ResultSet resultSet) throws SQLException;
     }
 }
