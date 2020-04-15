@@ -1,4 +1,4 @@
-package me.ptrcnull.dbmanager;
+package me.ptrcnull.database;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -9,11 +9,11 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class DBManager {
+public abstract class Database {
     private HikariConfig hikariConfig;
     private HikariDataSource dataSource;
 
-    public DBManager(String username, String password, String hostname, String port, String database) {
+    public Database(String username, String password, String hostname, String port, String database) {
         HikariConfig dbConfig = new HikariConfig();
 
         dbConfig.setDriverClassName("com.mysql.jdbc.Driver");

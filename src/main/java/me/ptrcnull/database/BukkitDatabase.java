@@ -1,9 +1,9 @@
-package me.ptrcnull.dbmanager;
+package me.ptrcnull.database;
 
 import org.bukkit.configuration.ConfigurationSection;
 
-public abstract class BukkitDBManager extends DBManager {
-    public BukkitDBManager(ConfigurationSection config) {
+public abstract class BukkitDatabase extends Database {
+    public BukkitDatabase(ConfigurationSection config) {
         super(
             config.getString("username", ""),
             config.getString("password", ""),

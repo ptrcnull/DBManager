@@ -1,9 +1,9 @@
-package me.ptrcnull.dbmanager;
+package me.ptrcnull.database;
 
 import net.md_5.bungee.config.Configuration;
 
-public abstract class BungeeDBManager extends DBManager {
-    public BungeeDBManager(Configuration config) {
+public abstract class BungeeDatabase extends Database {
+    public BungeeDatabase(Configuration config) {
         super(
             config.getString("username", ""),
             config.getString("password", ""),
